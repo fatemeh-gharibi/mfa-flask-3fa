@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: white;
+    color: #1f2937;
+    display: flex;
+    justify-content: space-around;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+}
+
+.image-side {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.image-side img {
+    width: 120%;
+    max-width: 700px;
+    object-fit: contain;
+}
+
+.form-side {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.box {
+    width: 380px;
+    padding: 40px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    box-shadow: 9px 0px 34px rgba(0, 0, 255, 0.20);
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 650;
+    color: #111827;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 14px;
+    margin-top: 6px;
+    margin-bottom: 28px;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px;
+    margin-bottom: 12px;
+
+    border: 1px solid #d7dce3;
+    border-radius: 10px;
+
+    background: #f9fafb;
+    color: #111827;
+
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus {
+    background: white;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.10);
+}
+
+.rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px 14px;
+    padding: 14px;
+    margin-top: 4px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.rule {
+    margin: 0;
+}
+
+.invalid {
+    color: #9ca3af;
+}
+
+.valid {
+    color: #16a34a;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    background: #cbd5e1;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 850px) {
+    .image-side {
+        display: none;
+    }
+
+    .form-side {
+        width: 100%;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- LEFT IMAGE -->
+    <div class="image-side">
+        <img src="/static/secPic.jpg" alt="Security illustration">
+    </div>
+
+
+    <!-- RIGHT FORM -->
+    <div class="form-side">
+
+        <div class="box">
+
+            <div class="title">Create account</div>
+            <div class="subtitle">
+                Set up your triple-factor authentication
+            </div>
+
+            <form method="POST" onsubmit="return validateAll()">
+
+                <input
+                    name="username"
+                    placeholder="Username"
+                    autocomplete="username"
+                    required>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email for OTP"
+                    autocomplete="email"
+                    required>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a strong password"
+                    autocomplete="new-password"
+                    required>
+
+                <div class="rules">
+
+                    <div id="len" class="rule invalid">
+                        &#10006; 8+ characters
+                    </div>
+
+                    <div id="upper" class="rule invalid">
+                        &#10006; Uppercase letter
+                    </div>
+
+                    <div id="lower" class="rule invalid">
+                        &#10006; Lowercase letter
+                    </div>
+
+                    <div id="num" class="rule invalid">
+                        &#10006; Number
+                    </div>
+
+                    <div id="special" class="rule invalid">
+                        &#10006; Special character
+                    </div>
+
+                </div>
+
+                <button id="btn" disabled>
+                    Create account
+                </button>
+
+            </form>
+
+            <div class="footer">
+                Already have an account?
+                <a href="/">Sign in</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const pass = document.getElementById("password");
+const btn = document.getElementById("btn");
+
+function check(id, condition) {
+
+    const el = document.getElementById(id);
+    const text = el.textContent.slice(2);
+
+    if (condition) {
+
+        el.classList.remove("invalid");
+        el.classList.add("valid");
+        el.innerHTML = "&#10004; " + text;
+
+    } else {
+
+        el.classList.remove("valid");
+        el.classList.add("invalid");
+        el.innerHTML = "&#10006; " + text;
+    }
+}
+
+
+pass.addEventListener("input", () => {
+
+    const value = pass.value;
+
+    const len = value.length >= 8;
+    const upper = /[A-Z]/.test(value);
+    const lower = /[a-z]/.test(value);
+    const num = /[0-9]/.test(value);
+    const special = /[^A-Za-z0-9]/.test(value);
+
+    check("len", len);
+    check("upper", upper);
+    check("lower", lower);
+    check("num", num);
+    check("special", special);
+
+    btn.disabled =
+        !(len && upper && lower && num && special);
+});
+
+
+function validateAll() {
+    return !btn.disabled;
+}
+
+</script>
+
+</body>
+</html>

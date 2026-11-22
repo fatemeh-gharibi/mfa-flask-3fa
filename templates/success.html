@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Success</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: white;
+    color: #1f2937;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+}
+
+.image-side {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.image-side img {
+    width: 120%;
+    max-width: 700px;
+    object-fit: contain;
+}
+
+.form-side {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.box {
+    width: 400px;
+    padding: 40px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    box-shadow: 9px 0px 34px rgba(0, 0, 255, 0.20);
+}
+
+.success-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 11px;
+    margin-bottom: 18px;
+
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+
+    color: #16a34a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 650;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+.token-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.token {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    padding: 14px;
+    border-radius: 10px;
+
+    font-size: 12px;
+    color: #4b5563;
+    line-height: 1.5;
+
+    word-break: break-all;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 850px) {
+    .image-side {
+        display: none;
+    }
+
+    .form-side {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="image-side">
+        <img src="/static/secPic.jpg" alt="Security illustration">
+    </div>
+
+    <div class="form-side">
+
+        <div class="box">
+
+            <div class="success-badge">
+                ✓ Authentication complete
+            </div>
+
+            <div class="title">
+                Login successful
+            </div>
+
+            <div class="subtitle">
+                Welcome, <strong>{{ session["user"] }}</strong>. 
+                All three authentication steps were completed successfully.
+            </div>
+
+            <div class="token-label">
+                Your JWT token
+            </div>
+
+            <div class="token">
+                {{ token }}
+            </div>
+            
+            <a href="/linkedin">
+                <button type="button">
+                    Continue to LinkedIn
+                </button>
+            </a>
+
+            <a href="/logout">
+                <button>Log out</button>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
